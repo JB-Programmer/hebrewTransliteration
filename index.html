@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Transliteration</title>
+  </head>
+  <body>
+    <p>Sample Text (he-mater) הָאִשָׁה  Sample Text (he-mater w/ mappiq) הָאִשָׁהּ</p>
+    <p>Sample Text (yod-mater) הָאִישׁ בֵית אִיָד  </p>
+    <p>Sample Text (shewa):   בְרֵאשִׁית בָרָא וְאֶת קָטַלְתְ </p>
+    <p>Sample Text הָ֥בָה נִֽתְחַכְּמָ֖ה ל֑וֹ פֶּן־יִרְבֶּ֗ה וְהָיָ֞ה כִּֽי־תִקְרֶ֤אנָה מִלְחָמָה֙ וְנוֹסַ֤ף גַּם־הוּא֙ עַל־שֹׂ֣נְאֵ֔ינוּ וְנִלְחַם־בָּ֖נוּ וְעָלָ֥ה מִן־הָאָֽרֶץ׃</p>
+    <p>Sample Text (note > o on tāq'û) וַיָּשִׂ֨מוּ֙ אֶת־כֵּלָ֔יו בֵּ֖ית עַשְׁתָּרֹ֑ות וְאֶת־גְּוִיָּתֹו֙ תָּקְע֔וּ בְּחֹומַ֖ת בֵּ֥ית שָֽׁן</p>
+
+    <form name="transliteration">
+    <!-- The text is inputed here  -->
+      <label for="input">Input Text:</label><br>
+
+      <textarea id="input" name="input_text" rows="8" cols="40" placeholder="עברית" style="text-align: right; font: 1.5em SBL Hebrew; "></textarea><br>
+
+      <button id="input_button" type="button" name="submit_button">Submit</button>
+      <button type="reset" name="reset_button">Reset</button> <br>
+
+    <!-- The Text is outputted here  -->
+      <label for="output">Transliteration:</label><br>
+
+      <textarea id="output" name="output_text" rows="8" cols="40" placeholder="ʿbryt" style="font: italic 1.5em Charis SIL Compact;"></textarea><br>
+      <button type="reset" name="reset_button">Reset</button>
+
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="transliterate.js"></script>
+  </body>
+</html>
