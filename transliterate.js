@@ -399,33 +399,56 @@ function isQamatsQatan () {
 /************************************************************
 ******************** Shewa Naʿ or Naḥ ***********************
 ************************************************************/
+function isShewaSilent ( ) {
+  for ( i = 0; i < engVal.length; i++) {
+    if (engVal.charAt(i) === 'ǝ') {
+      if (/s|ṣ|š|ś|l|m|n|q|w|y/.test(engVal.charAt(i-1)) && /a|i/.test(engVal.charAt(i - 2)) && /w|h|m|l|b|k/.test(engVal.charAt(i - 3))) {
+        outputVal = engVal;
+      } else if(/ǝ|a|e|i|u|o/.test(engVal.charAt(i - 2))) {
+          var index = engVal.indexOf('ǝ', i);
+          var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
+          console.log("If a silent shewa is found it becomes: " + newStr);
+          engVal = newStr;
+          outputVal = engVal;
+      } else if (engVal.charAt(i + 1) === ' '){
+          var index = engVal.indexOf('ǝ', i);
+          var newStr = engVal.substr(0, index) + '' + engVal.substr(index + 1, );
+          console.log("If an end shewa is found it becomes: " + newStr);
+          engVal = newStr;
+          outputVal = engVal;
+        }
+      } else {
+      outputVal = engVal;
+    }
+  }
+}
 
-  function isShewaSilent ( ) {
-    for ( i = 0; i < engVal.length; i++) {
-      if ( engVal.charAt(i) === 'ǝ' &&
-           /ǝ|a|e|i|u|o/.test(engVal.charAt(i - 2)))
-           {
-             var index = engVal.indexOf('ǝ', i);
-             var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
-             console.log("If a silent shewa is found it becomes: " + newStr);
-             engVal = newStr;
-             outputVal = engVal;
-           } if ( engVal.charAt(i) === 'ǝ' &&
-                  engVal.charAt(i+1) === ' ' )
-           {
-             var index = engVal.indexOf('ǝ', i);
-            //  console.log(index);
-             var newStr = engVal.substr(0, index) + '' + engVal.substr(index + 1, );
-             console.log("If an end shewa is found it becomes: " + newStr);
-             engVal = newStr;
-             outputVal = engVal;
-           }
-           else
-           {
-             outputVal = engVal;
-           }
-         }
-       }
+  // function isShewaSilent ( ) {
+  //   for ( i = 0; i < engVal.length; i++) {
+  //     if ( engVal.charAt(i) === 'ǝ' &&
+  //          /ǝ|a|e|i|u|o/.test(engVal.charAt(i - 2)))
+  //          {
+  //            var index = engVal.indexOf('ǝ', i);
+  //            var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
+  //            console.log("If a silent shewa is found it becomes: " + newStr);
+  //            engVal = newStr;
+  //            outputVal = engVal;
+  //          } if ( engVal.charAt(i) === 'ǝ' &&
+  //                 engVal.charAt(i+1) === ' ' )
+  //          {
+  //            var index = engVal.indexOf('ǝ', i);
+  //           //  console.log(index);
+  //            var newStr = engVal.substr(0, index) + '' + engVal.substr(index + 1, );
+  //            console.log("If an end shewa is found it becomes: " + newStr);
+  //            engVal = newStr;
+  //            outputVal = engVal;
+  //          }
+  //          else
+  //          {
+  //            outputVal = engVal;
+  //          }
+  //        }
+  //      }
 
 /************************************************************
 ******************** Doubling *******************************
