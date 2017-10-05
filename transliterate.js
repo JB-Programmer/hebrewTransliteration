@@ -1,3 +1,4 @@
+var i;
 var inputVal; // the original Hebrew text
 var engVal; // the transliterated text
 var outputVal; // the text to be printed
@@ -144,7 +145,7 @@ function isŚinŠin () {
 ************************************************************/
 
 // As a note, \b indicates a word boundary
-var aMater = /āh\b/;
+var aMater = /āh(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|9)/;
 var materTrans;
 // changeHeMater changes a ה without a mappiq to â
 function changeHeMater () {
@@ -156,7 +157,7 @@ function changeHeMater () {
 // isHeMater determines if the ה is being used as a mater, if so, executes changeHeMater
 function isHeMater () {
   for (var i = 0; i < engVal.length; i++) {
-    if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 1) === 'h') {
+    if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 1) === 'h' && !(/ā/.test(engVal.charAt(i+2))) ) {
       changeHeMater ();
       outputVal = engVal;
     } else {
@@ -479,7 +480,7 @@ function test () {
   transliterateText();
   isŚinŠin ();
   isHeMater();
-  isHeMappiq();
+  isHeMappiq(); /*evaluate, may not need*/
   isYodMater ();
   isWawMater ();
   isQamatsQatan ();
