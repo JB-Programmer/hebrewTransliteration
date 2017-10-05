@@ -285,6 +285,7 @@ var shureqWawA = /w9(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|o|u)/;
 var shureqWawATrans;
 var shureqWawB = /9w(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|o|u)/;
 var shureqWawBTrans;
+var removeCantillation;
 
 function changeHolamWawA () {
   var arrayOfStrings = engVal.split(holamWawA);
@@ -316,8 +317,19 @@ function changeShureqWawB () {
 
 function isWawMater () {
   for (var i = 0; i < engVal.length; i++) {
-    if ( engVal.charAt(i) === 'w' &&
-         engVal.charAt(i + 1) === 'ō' &&
+
+    if (engVal.charAt(i) === 'ō' && digit.test(engVal.charAt(i + 1))) {
+      if (engVal.charAt(i + 1) === '1') {
+        var arrayOfStrings = engVal.split('1');
+        removeCantillation = arrayOfStrings.join('');
+        engVal = removeCantillation;
+      } else if (engVal.charAt(i + 1) === '5') {
+        var arrayOfStrings = engVal.split('5');
+        removeCantillation = arrayOfStrings.join('');
+        engVal = removeCantillation;
+      }
+
+    } if ( engVal.charAt(i) === 'w' && engVal.charAt(i + 1) === 'ō' &&
          !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i + 2)) ) &&
          !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i - 1)) )
        ) {
@@ -330,22 +342,27 @@ function isWawMater () {
        ) {
       changeHolamWawB ();
       outputVal = engVal;
-    } else if (engVal.charAt(i) === 'w' &&
+
+    } else if (engVal.charAt(i) === 'w' && digit.test(engVal.charAt(i + 1))) {
+      if (engVal.charAt(i + 1) === '1') {
+        var arrayOfStrings = engVal.split('1');
+        removeCantillation = arrayOfStrings.join('');
+        engVal = removeCantillation;
+      } else if (engVal.charAt(i + 1) === '5') {
+        var arrayOfStrings = engVal.split('5');
+        removeCantillation = arrayOfStrings.join('');
+        engVal = removeCantillation;
+      } if (engVal.charAt(i) === 'w' &&
          engVal.charAt(i + 1) === '9' &&
          !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|ō|u/.test(engVal.charAt(i + 2)) )) {
-      changeShureqWawA ();
-      outputVal = engVal;
-      // this line may never actually occur
-    }  else if (engVal.charAt(i) === '9' &&
-         engVal.charAt(i + 1) === 'w' &&
-         !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|ō|u/.test(engVal.charAt(i + 2)) )) {
-      changeShureqWawB ();
-      outputVal = engVal;
-    } else {
-      outputVal = engVal;
-    }
-  }
-}
+           changeShureqWawA ();
+           outputVal = engVal;
+         } else {
+           outputVal = engVal;
+         }
+       }
+     }
+   }
 
 /************************************************************
 ******************** Qamats Qatan ***************************
