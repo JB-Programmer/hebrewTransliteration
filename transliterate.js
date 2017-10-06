@@ -144,7 +144,6 @@ function isŚinŠin () {
 ******************** He as a Mater **************************
 ************************************************************/
 
-// As a note, \b indicates a word boundary
 var aMater = /āh(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|9)/;
 var materTrans;
 // changeHeMater changes a ה without a mappiq to â
@@ -167,34 +166,10 @@ function isHeMater () {
 }
 
 /************************************************************
-******************** He with a Mappiq ***********************
-************************************************************/
-
-var aMaterMappiq = /āh(?=dagesh)/; // this indicates the sequence of āh+mappiq
-var mappiqTrans;
-// changeMappiq changes a ה with a mappiq to āh
-function changeMappiq () {
-  var arrayOfStrings = engVal.split(dagesh);
-  mappiqTrans = arrayOfStrings.join('');
-  console.log("If a he w/ a mappiq is found it becomes: " + mappiqTrans);
-  engVal = mappiqTrans;
-}
-// isHeMappiq determines if the ה is being used with a mappiq, if so, executes changeMappiq
-function isHeMappiq() {
-  for (var i = 0; i < engVal.length; i++) {
-    if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 1) === 'h' && engVal.charAt(i + 2) === dagesh) {
-      changeMappiq ();
-      outputVal = engVal;
-    } else {
-      outputVal = engVal;
-    }
-  }
-}
-
-/************************************************************
 ********************  Yod as a Mater ************************
 ************************************************************/
 
+var methegOrAthnah = /1|5/
 var hiriqYod = /iy(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|9)/;
 var hiriqYodTrans;
 var tsereYod = /ēy(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|9)/;
@@ -225,49 +200,35 @@ function changeSegolYod () {
 
 function isYodMater () {
   for (var i = 0; i < engVal.length; i++) {
-    if ( engVal.charAt(i) === 'i' &&
-         (engVal.charAt(i + 1) === 'y') &&
-         !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i + 2)) ) ) {
+    if ( engVal.charAt(i) === 'i' && (engVal.charAt(i + 1) === 'y') && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i + 2)) ) ) {
       changeHiriqYod ();
       outputVal = engVal;
-    }
-    else if (engVal.charAt(i) === 'i' &&
-         engVal.charAt(i+1) === '5' &&
-         engVal.charAt(i + 2) === 'y' &&
-         !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i + 3)) ) ) {
-           var index = engVal.indexOf('5', i+1)
-           var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
-           engVal = newStr;
-        changeHiriqYod ();
-        outputVal = engVal;
+    } else if (engVal.charAt(i) === 'i' && methegOrAthnah.test(engVal.charAt(i+1)) && engVal.charAt(i + 2) === 'y' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i + 3)) ) ) {
+      var index = engVal.indexOf(engVal.charAt(i+1), i+1);
+      var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
+      engVal = newStr;
+      changeHiriqYod ();
+      outputVal = engVal;
     } else if (engVal.charAt(i) === 'ē' &&
          engVal.charAt(i + 1) === 'y' &&
          !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i + 2)) ) ) {
       changeTsereYod ();
       outputVal = engVal;
-    } else if (engVal.charAt(i) === 'ē' &&
-         engVal.charAt(i+1) === '5' &&
-         engVal.charAt(i + 2) === 'y' &&
-         !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i + 3)) ) ) {
-           var index = engVal.indexOf('5', i+1)
-           var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
-           engVal = newStr;
-        changeTsereYod ();
-        outputVal = engVal;
-    } else if (engVal.charAt(i) === 'e' &&
-         engVal.charAt(i + 1) === 'y' &&
-         !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i + 2)) )) {
+    } else if (engVal.charAt(i) === 'ē' && methegOrAthnah.test(engVal.charAt(i+1)) && engVal.charAt(i + 2) === 'y' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i + 3)) ) ) {
+      var index = engVal.indexOf(engVal.charAt(i+1), i+1);
+      var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
+      engVal = newStr;
+      changeTsereYod ();
+      outputVal = engVal;
+    } else if (engVal.charAt(i) === 'e' && engVal.charAt(i + 1) === 'y' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i + 2)) )) {
       changeSegolYod ();
       outputVal = engVal;
-    } else if (engVal.charAt(i) === 'e' &&
-         engVal.charAt(i+1) === '5' &&
-         engVal.charAt(i + 2) === 'y' &&
-         !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i + 3)) ) ) {
-           var index = engVal.indexOf('5', i+1)
-           var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
-           engVal = newStr;
-        changeSegolYod ();
-        outputVal = engVal;
+    } else if (engVal.charAt(i) === 'e' && methegOrAthnah.test(engVal.charAt(i+1)) && engVal.charAt(i + 2) === 'y' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i + 3)) ) ) {
+      var index = engVal.indexOf(engVal.charAt(i+1), i+1);
+      var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
+      engVal = newStr;
+      changeSegolYod ();
+      outputVal = engVal;
     } else {
       outputVal = engVal;
     }
@@ -278,6 +239,7 @@ function isYodMater () {
 ******************** Waw as a Mater *************************
 ************************************************************/
 
+// UPDATE, possibly, in similar manner to hiriqYod
 var holamWawA = /wō(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|u|9)/;
 var holamWawATrans;
 var holamWawB = /ōw(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|u|9)/;
@@ -318,52 +280,30 @@ function changeShureqWawB () {
 
 function isWawMater () {
   for (var i = 0; i < engVal.length; i++) {
-
-    if (engVal.charAt(i) === 'ō' && digit.test(engVal.charAt(i + 1))) {
-      if (engVal.charAt(i + 1) === '1') {
-        var arrayOfStrings = engVal.split('1');
-        removeCantillation = arrayOfStrings.join('');
-        engVal = removeCantillation;
-      } else if (engVal.charAt(i + 1) === '5') {
-        var arrayOfStrings = engVal.split('5');
-        removeCantillation = arrayOfStrings.join('');
-        engVal = removeCantillation;
-      }
-
-    } if ( engVal.charAt(i) === 'w' && engVal.charAt(i + 1) === 'ō' &&
-         !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i + 2)) ) &&
-         !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i - 1)) )
-       ) {
+    if (engVal.charAt(i) === 'w' && methegOrAthnah.test(engVal.charAt(i + 1))) {
+      var index = engVal.indexOf(engVal.charAt(i+1), i+1);
+      var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
+      engVal = newStr;
+    } if ( engVal.charAt(i) === 'w' && engVal.charAt(i + 1) === 'ō' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i + 2)) ) &&
+    !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i - 1)) )) {
       changeHolamWawA ();
       outputVal = engVal;
-    } else if (engVal.charAt(i) === 'ō' &&
-         engVal.charAt(i + 1) === 'w' &&
-         !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|ō|u|9/.test(engVal.charAt(i + 2)) ) &&
-         !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i - 1)) )
-       ) {
+    } else if (engVal.charAt(i) === 'ō' && digit.test(engVal.charAt(i + 1))) {
+      var index = engVal.indexOf(engVal.charAt(i+1), i+1);
+      var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
+      engVal = newStr;
+    } if (engVal.charAt(i) === 'ō' && engVal.charAt(i + 1) === 'w' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|ō|u|9/.test(engVal.charAt(i + 2)) ) &&
+    !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i - 1)) )) {
       changeHolamWawB ();
       outputVal = engVal;
-
-    } else if (engVal.charAt(i) === 'w' && digit.test(engVal.charAt(i + 1))) {
-      if (engVal.charAt(i + 1) === '1') {
-        var arrayOfStrings = engVal.split('1');
-        removeCantillation = arrayOfStrings.join('');
-        engVal = removeCantillation;
-      } else if (engVal.charAt(i + 1) === '5') {
-        var arrayOfStrings = engVal.split('5');
-        removeCantillation = arrayOfStrings.join('');
-        engVal = removeCantillation;
-      } if (engVal.charAt(i) === 'w' &&
-         engVal.charAt(i + 1) === '9' &&
-         !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|ō|u/.test(engVal.charAt(i + 2)) )) {
-           changeShureqWawA ();
-           outputVal = engVal;
-         } else {
-           outputVal = engVal;
-         }
-       }
-     }
-   }
+      } if (engVal.charAt(i) === 'w' && engVal.charAt(i + 1) === '9' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|ō|u/.test(engVal.charAt(i + 2)) )) {
+        changeShureqWawA ();
+        outputVal = engVal;
+      } else {
+        outputVal = engVal;
+      }
+    }
+  }
 
 /************************************************************
 ******************** Qamats Qatan ***************************
@@ -406,7 +346,7 @@ function isQamatsQatan () {
       if ( engVal.charAt(i) === 'ǝ' &&
            /ǝ|a|e|i|u|o/.test(engVal.charAt(i - 2)))
            {
-             var index = engVal.indexOf('ǝ', i);
+            var index = engVal.indexOf('ǝ', i);
              var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
              console.log("If a silent shewa is found it becomes: " + newStr);
              engVal = newStr;
@@ -480,7 +420,6 @@ function test () {
   transliterateText();
   isŚinŠin ();
   isHeMater();
-  isHeMappiq(); /*evaluate, may not need*/
   isYodMater ();
   isWawMater ();
   isQamatsQatan ();
