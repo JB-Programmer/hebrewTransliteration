@@ -239,7 +239,6 @@ function isYodMater () {
 ******************** Waw as a Mater *************************
 ************************************************************/
 
-// UPDATE, possibly, in similar manner to hiriqYod
 var holamWawA = /wō(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|u|9)/;
 var holamWawATrans;
 var holamWawB = /ōw(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|u|9)/;
@@ -248,7 +247,6 @@ var shureqWawA = /w9(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|o|u)/;
 var shureqWawATrans;
 var shureqWawB = /9w(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|o|u)/;
 var shureqWawBTrans;
-var removeCantillation;
 
 function changeHolamWawA () {
   var arrayOfStrings = engVal.split(holamWawA);
@@ -288,7 +286,7 @@ function isWawMater () {
     !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i - 1)) )) {
       changeHolamWawA ();
       outputVal = engVal;
-    } else if (engVal.charAt(i) === 'ō' && digit.test(engVal.charAt(i + 1))) {
+    } else if (engVal.charAt(i) === 'ō' && methegOrAthnah.test(engVal.charAt(i + 1))) {
       var index = engVal.indexOf(engVal.charAt(i+1), i+1);
       var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
       engVal = newStr;
@@ -296,14 +294,14 @@ function isWawMater () {
     !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i - 1)) )) {
       changeHolamWawB ();
       outputVal = engVal;
-      } if (engVal.charAt(i) === 'w' && engVal.charAt(i + 1) === '9' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|ō|u/.test(engVal.charAt(i + 2)) )) {
-        changeShureqWawA ();
-        outputVal = engVal;
-      } else {
-        outputVal = engVal;
-      }
+    } if (engVal.charAt(i) === 'w' && engVal.charAt(i + 1) === '9' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|ō|u/.test(engVal.charAt(i + 2)) )) {
+      changeShureqWawA ();
+      outputVal = engVal;
+    } else {
+      outputVal = engVal;
     }
   }
+}
 
 /************************************************************
 ******************** Qamats Qatan ***************************
@@ -374,7 +372,12 @@ function isQamatsQatan () {
 
 function isDoubling () {
   for (var i = 0; i < engVal.length; i++) {
-    if (engVal.charAt(i) === '9' && /a|e|i|u|o/.test(engVal.charAt(i - 2)) ) {
+    if (engVal.charAt(i) === '9' && engVal.charAt(i-2) === '5') {
+      var index = engVal.indexOf(engVal.charAt(i-2), i-2);
+      var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
+      engVal = newStr;
+      i = 0;
+    } else if (engVal.charAt(i) === '9' && /a|e|i|u|o/.test(engVal.charAt(i-2)) ) {
       var index = engVal.indexOf('9', i);
       var newStr = engVal.substr(0, index) + engVal.charAt(index-1) + engVal.substr(index+1, );
       console.log("If a dagesh forte is found it becomes: " + newStr);
@@ -425,6 +428,7 @@ function test () {
   isQamatsQatan ();
   isShewaSilent ();
   isDoubling();
+  // furtivepatah
   // ?? short vowels ??
   // ?? defective vowels ??
   cleanup();
