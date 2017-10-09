@@ -297,8 +297,7 @@ function isWawMater () {
       var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
       engVal = newStr;
       i = 0;
-    } if (engVal.charAt(i) === 'ō' && engVal.charAt(i + 1) === 'w' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|ō|u|9/.test(engVal.charAt(i + 2)) )
-  /*&& !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i - 1)) )*/ ) {
+    } if (engVal.charAt(i) === 'ō' && engVal.charAt(i + 1) === 'w' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|ō|u|9/.test(engVal.charAt(i + 2)) ) ) {
       changeHolamWawB ();
       outputVal = engVal;
     } if (engVal.charAt(i) === 'w' && engVal.charAt(i + 1) === '9' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|ō|u/.test(engVal.charAt(i + 2)) )) {
@@ -354,30 +353,32 @@ function isQamatsQatan () {
 
 function isShewaSilent ( ) {
   for ( i = 0; i < engVal.length; i++) {
-  if ( engVal.charAt(i) === 'ǝ' &&
-       /ǝ|a|e|i|u|o/.test(engVal.charAt(i - 2)))
-       {
-        var index = engVal.indexOf('ǝ', i);
-        var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
-        console.log("If a silent shewa is found it becomes: " + newStr);
-        engVal = newStr;
-        outputVal = engVal;
-       } if ( engVal.charAt(i) === 'ǝ' &&
-              engVal.charAt(i+1) === ' ' )
-       {
-         var index = engVal.indexOf('ǝ', i);
-        //  console.log(index);
-         var newStr = engVal.substr(0, index) + '' + engVal.substr(index + 1, );
-         console.log("If an end shewa is found it becomes: " + newStr);
-         engVal = newStr;
-         outputVal = engVal;
-       }
-       else
-       {
-         outputVal = engVal;
-       }
-     }
-   }
+    if (engVal.charAt(i) === 'ǝ' && /s|ṣ|š|ś|q|n|m|l|w|y/.test(engVal.charAt(i - 1))&& /ǝ|a|e|i|u|o/.test(engVal.charAt(i - 2)) && /w/.test(engVal.charAt(i - 3)) ){
+      outputVal = engVal;
+    }
+    else if ( engVal.charAt(i) === 'ǝ' && /ǝ|a|e|i|u|o/.test(engVal.charAt(i - 2)))
+    {
+      var index = engVal.indexOf('ǝ', i);
+      var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
+      console.log("If a silent shewa is found it becomes: " + newStr);
+      engVal = newStr;
+      outputVal = engVal;
+    }
+    if ( engVal.charAt(i) === 'ǝ' && engVal.charAt(i+1) === ' ' )
+    {
+      var index = engVal.indexOf('ǝ', i);
+      //  console.log(index);
+      var newStr = engVal.substr(0, index) + '' + engVal.substr(index + 1, );
+      console.log("If an end shewa is found it becomes: " + newStr);
+      engVal = newStr;
+      outputVal = engVal;
+    }
+    else
+    {
+      outputVal = engVal;
+    }
+  }
+}
 
 /************************************************************
 ******************** Doubling *******************************
@@ -390,7 +391,7 @@ function isDoubling () {
       var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
       engVal = newStr;
       i = 0;
-    } else if (engVal.charAt(i) === '9' && /a|e|i|u|o/.test(engVal.charAt(i-2)) ) {
+    } if (engVal.charAt(i) === '9' && /a|ā|e|ē|i|î|u|û|o|ô/.test(engVal.charAt(i-2)) ) {
       var index = engVal.indexOf('9', i);
       var newStr = engVal.substr(0, index) + engVal.charAt(index-1) + engVal.substr(index+1, );
       console.log("If a dagesh forte is found it becomes: " + newStr);
@@ -460,13 +461,14 @@ function test () {
   isQamatsQatan ();
   isDoubling();
   isFurtivePatach ();
-  // fix SQeNeM LeVY issue
+  // qamats qatan in "closed" syllables
   // ?? short vowels ??
   // ?? defective vowels ??
+  // wawMater with C9wō ≠ CCô
+  // isDoubling messing with heMater, maybe need to add back in
   // About page - embed video of me using it
   cleanup();
   outputVal = $('#output').val(outputVal);
 }
-
 
 $("#input_button").click(test);
