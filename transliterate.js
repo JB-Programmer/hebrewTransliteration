@@ -6,6 +6,7 @@ var dagesh = '9';
 var šinDot = '8';
 var śinDot = '7';
 var metheg = '5';
+var methegOrAthnah = /1|5/;
 var digit = /\d/; //any non specific digit = cantillation mark
 
 /* These are the Hebrew Characters and their corresponding transliterated character */
@@ -156,7 +157,12 @@ function changeHeMater () {
 // isHeMater determines if the ה is being used as a mater, if so, executes changeHeMater
 function isHeMater () {
   for (var i = 0; i < engVal.length; i++) {
-    if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 1) === 'h' && !(/ā/.test(engVal.charAt(i+2))) ) {
+    if (engVal.charAt(i) === 'ā' && methegOrAthnah.test(engVal.charAt(i + 1))) {
+      var index = engVal.indexOf(engVal.charAt(i+1), i+1);
+      var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
+      engVal = newStr;
+      i = 0;
+    } if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 1) === 'h' && !(/ā/.test(engVal.charAt(i+2))) ) {
       changeHeMater ();
       outputVal = engVal;
     } else {
@@ -169,7 +175,6 @@ function isHeMater () {
 ********************  Yod as a Mater ************************
 ************************************************************/
 
-var methegOrAthnah = /1|5/
 var hiriqYod = /iy(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|9)/;
 var hiriqYodTrans;
 var tsereYod = /ēy(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|9)/;
@@ -282,6 +287,7 @@ function isWawMater () {
       var index = engVal.indexOf(engVal.charAt(i+1), i+1);
       var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
       engVal = newStr;
+      i = 0;
     } if ( engVal.charAt(i) === 'w' && engVal.charAt(i + 1) === 'ō' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i + 2)) ) &&
     !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i - 1)) )) {
       changeHolamWawA ();
@@ -290,8 +296,9 @@ function isWawMater () {
       var index = engVal.indexOf(engVal.charAt(i+1), i+1);
       var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
       engVal = newStr;
-    } if (engVal.charAt(i) === 'ō' && engVal.charAt(i + 1) === 'w' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|ō|u|9/.test(engVal.charAt(i + 2)) ) &&
-    !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i - 1)) )) {
+      i = 0;
+    } if (engVal.charAt(i) === 'ō' && engVal.charAt(i + 1) === 'w' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|ō|u|9/.test(engVal.charAt(i + 2)) )
+  /*&& !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i - 1)) )*/ ) {
       changeHolamWawB ();
       outputVal = engVal;
     } if (engVal.charAt(i) === 'w' && engVal.charAt(i + 1) === '9' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|ō|u/.test(engVal.charAt(i + 2)) )) {
@@ -309,19 +316,25 @@ function isWawMater () {
 
 function isQamatsQatan () {
     for (var i = 0; i < engVal.length; i++) {
+      // Definitely Keep
       if ( engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === 'ŏ') {
         var index = engVal.indexOf('ā', i);
         var newStr = engVal.substr(0, index) + 'o' + engVal.substr(index+1, );
         console.log("If a qamats qatan is found it becomes: " + newStr);
         engVal = newStr;
         outputVal = engVal;
-      } else if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === '-') {
+      } // This one may have to change
+      else if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === '-') {
         var index = engVal.indexOf('ā', i);
         var newStr = engVal.substr(0, index) + 'o' + engVal.substr(index+1, );
         console.log("If a qamats qatan is found it becomes: " + newStr);
         engVal = newStr;
         outputVal = engVal;
-      } else if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === 'ǝ' && engVal.charAt(i + 3) != ' ') {
+      } // Hmmmmm definitely not going to stay
+      else if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === 'ǝ' && engVal.charAt(i + 4) === 'û') {
+        outputVal = engVal;
+      }
+      else if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === 'ǝ' && engVal.charAt(i + 3) != ' ') {
         var index = engVal.indexOf('ā', i);
         var newStr = engVal.substr(0, index) + 'o' + engVal.substr(index+1, );
         console.log("If a qamats qatan is found it becomes: " + newStr);
@@ -339,32 +352,32 @@ function isQamatsQatan () {
 ******************** Shewa Naʿ or Naḥ ***********************
 ************************************************************/
 
-  function isShewaSilent ( ) {
-    for ( i = 0; i < engVal.length; i++) {
-      if ( engVal.charAt(i) === 'ǝ' &&
-           /ǝ|a|e|i|u|o/.test(engVal.charAt(i - 2)))
-           {
-            var index = engVal.indexOf('ǝ', i);
-             var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
-             console.log("If a silent shewa is found it becomes: " + newStr);
-             engVal = newStr;
-             outputVal = engVal;
-           } if ( engVal.charAt(i) === 'ǝ' &&
-                  engVal.charAt(i+1) === ' ' )
-           {
-             var index = engVal.indexOf('ǝ', i);
-            //  console.log(index);
-             var newStr = engVal.substr(0, index) + '' + engVal.substr(index + 1, );
-             console.log("If an end shewa is found it becomes: " + newStr);
-             engVal = newStr;
-             outputVal = engVal;
-           }
-           else
-           {
-             outputVal = engVal;
-           }
-         }
+function isShewaSilent ( ) {
+  for ( i = 0; i < engVal.length; i++) {
+  if ( engVal.charAt(i) === 'ǝ' &&
+       /ǝ|a|e|i|u|o/.test(engVal.charAt(i - 2)))
+       {
+        var index = engVal.indexOf('ǝ', i);
+        var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
+        console.log("If a silent shewa is found it becomes: " + newStr);
+        engVal = newStr;
+        outputVal = engVal;
+       } if ( engVal.charAt(i) === 'ǝ' &&
+              engVal.charAt(i+1) === ' ' )
+       {
+         var index = engVal.indexOf('ǝ', i);
+        //  console.log(index);
+         var newStr = engVal.substr(0, index) + '' + engVal.substr(index + 1, );
+         console.log("If an end shewa is found it becomes: " + newStr);
+         engVal = newStr;
+         outputVal = engVal;
        }
+       else
+       {
+         outputVal = engVal;
+       }
+     }
+   }
 
 /************************************************************
 ******************** Doubling *******************************
@@ -387,6 +400,24 @@ function isDoubling () {
       var index = engVal.indexOf('9', i);
       var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
       console.log("If a dagesh lene is found it becomes: " + newStr);
+      engVal = newStr;
+      outputVal = engVal;
+    }
+  }
+}
+
+/************************************************************
+******************** Furtive Patach *************************
+************************************************************/
+
+var gutturals = /h|ḥ|ʿ/;
+
+function isFurtivePatach () {
+  for (var i = 0; i < engVal.length; i++) {
+    if (engVal.charAt(i) === 'a' && gutturals.test(engVal.charAt(i-1)) && /e|ē|ê|i|î|u|û|o|ô/.test(engVal.charAt(i-2)) && engVal.charAt(i+1) === ' ') {
+      var index = engVal.indexOf(engVal.charAt(i-1), i-1);
+      var newStr = engVal.substr(0, index) + 'a' + engVal.substr(index, 1 ) + '' + engVal.substr(index + 2, );
+      console.log("If a furtive patach is found it becomes: " + newStr);
       engVal = newStr;
       outputVal = engVal;
     }
@@ -425,12 +456,14 @@ function test () {
   isHeMater();
   isYodMater ();
   isWawMater ();
-  isQamatsQatan ();
   isShewaSilent ();
+  isQamatsQatan ();
   isDoubling();
-  // furtivepatah
+  isFurtivePatach ();
+  // fix SQeNeM LeVY issue
   // ?? short vowels ??
   // ?? defective vowels ??
+  // About page - embed video of me using it
   cleanup();
   outputVal = $('#output').val(outputVal);
 }
