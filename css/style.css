@@ -1,0 +1,88 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:active {
+  font-weight: 800;
+  font-size: 20px;
+}
+
+/**********
+*** Nav ***
+***********/
+
+nav {
+  display: flex;
+  justify-content: center;
+  box-shadow: 2px 0px 2px 3px rgba(0, 0, 0, .3);
+}
+
+nav ul{
+  list-style: none;
+  display: flex;
+  flex-flow: column nowrap;
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+  font-size: 24px;
+}
+
+.banner {
+  margin: 20px 20px 10px 20px;
+}
+
+.page-links {
+  font-size: 16px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.page-links li {
+  padding: 5px;
+  width: 40%;
+}
+
+.selected {
+  font-style: italic;
+}
+
+.page-links li:first-child, .page-links li:first-child+li {
+  border-bottom: 1px solid;
+}
+/***********
+*** Main ***
+************/
+
+.wrapper {
+  padding-top: 20px;
+  /*border: 1px solid green;*/
+  display: flex;
+  justify-content: center;
+}
+
+form {
+  width: 90%;
+  text-align:left;
+}
+
+label {
+  font-family: sans-serif;
+  font-size: 14px;
+  font-weight: lighter;
+}
+
+#input,
+#output {
+  width: 100%;
+  border-radius: 5px;
+  /*background-color: lightgrey;*/
+  padding: 5px 8px;
+}

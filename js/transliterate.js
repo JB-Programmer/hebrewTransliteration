@@ -162,8 +162,33 @@ function isHeMater () {
       var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
       engVal = newStr;
       i = 0;
-    } if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 1) === 'h' && !(/ā/.test(engVal.charAt(i+2))) ) {
+    } if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 1) === 'h' /*&& / /.test(engVal.charAt(i+2))*/ ) {
       changeHeMater ();
+      outputVal = engVal;
+    } else {
+      outputVal = engVal;
+    }
+  }
+}
+
+/************************************************************
+******************** He with a Mappiq ***********************
+************************************************************/
+
+var aMaterMappiq = /āh9/; // this indicates the sequence of āh+mappiq
+var mappiqTrans;
+// changeMappiq changes a ה with a mappiq to āh
+function changeMappiq () {
+  var arrayOfStrings = engVal.split(aMaterMappiq);
+  mappiqTrans = arrayOfStrings.join('āh');
+  console.log("If a he w/ a mappiq is found it becomes: " + mappiqTrans);
+  engVal = mappiqTrans;
+}
+// isHeMappiq determines if the ה is being used with a mappiq, if so, executes changeMappiq
+function isHeMappiq() {
+  for (var i = 0; i < engVal.length; i++) {
+    if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 1) === 'h' && engVal.charAt(i + 2) === dagesh ) {
+      changeMappiq ();
       outputVal = engVal;
     } else {
       outputVal = engVal;
@@ -214,9 +239,7 @@ function isYodMater () {
       engVal = newStr;
       changeHiriqYod ();
       outputVal = engVal;
-    } else if (engVal.charAt(i) === 'ē' &&
-         engVal.charAt(i + 1) === 'y' &&
-         !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i + 2)) ) ) {
+    } else if (engVal.charAt(i) === 'ē' && engVal.charAt(i + 1) === 'y' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i + 2)) ) ) {
       changeTsereYod ();
       outputVal = engVal;
     } else if (engVal.charAt(i) === 'ē' && methegOrAthnah.test(engVal.charAt(i+1)) && engVal.charAt(i + 2) === 'y' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i + 3)) ) ) {
@@ -289,7 +312,7 @@ function isWawMater () {
       engVal = newStr;
       i = 0;
     } if ( engVal.charAt(i) === 'w' && engVal.charAt(i + 1) === 'ō' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i + 2)) ) &&
-    !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i - 1)) )) {
+    !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u/.test(engVal.charAt(i - 1)) )) {
       changeHolamWawA ();
       outputVal = engVal;
     } else if (engVal.charAt(i) === 'ō' && methegOrAthnah.test(engVal.charAt(i + 1))) {
@@ -432,9 +455,6 @@ function isFurtivePatach () {
 function cleanup () {
   for (var i = 0; i < engVal.length; i++) {
     if (digit.test(engVal.charAt(i)) ) {
-      //var index = engVal.indexOf(digit, i);
-      //console.log(index);
-      //var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
       var arrayOfStrings = engVal.split(digit);
       var cleanup = arrayOfStrings.join('');
       console.log("The cleanup becomes " + cleanup);
@@ -453,19 +473,18 @@ function cleanup () {
 // test executes all the above functions
 function test () {
   transliterateText();
-  isŚinŠin ();
+  isŚinŠin();
   isHeMater();
-  isYodMater ();
-  isWawMater ();
-  isShewaSilent ();
-  isQamatsQatan ();
+  isHeMappiq();
+  isYodMater();
+  isWawMater();
+  isShewaSilent();
+  isQamatsQatan();
   isDoubling();
-  isFurtivePatach ();
+  isFurtivePatach();
   // qamats qatan in "closed" syllables
   // ?? short vowels ??
   // ?? defective vowels ??
-  // wawMater with C9wō ≠ CCô
-  // isDoubling messing with heMater, maybe need to add back in
   // About page - embed video of me using it
   cleanup();
   outputVal = $('#output').val(outputVal);

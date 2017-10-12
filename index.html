@@ -3,23 +3,34 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Transliteration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Hebrew to Transliteration</title>
   </head>
   <body>
-    <header>
-      Hebrew to Transliteration
-    </header>
+    <nav>
+      <ul>
+        <li class="banner">HEBREW to TRANSLITERATION</li>
+        <div class="page-links">
+          <li class="selected"><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="tips.html">Tips</a></li>
+        </div>
+        <span id="nav-arrow">&#8964</span>
+      </ul>
+    </nav>
     <div class="wrapper">
       <form name="transliteration">
-      <!-- The text is inputed here  -->
-        <label for="input">Type of Paste Text Here:</label><br>
 
-        <textarea id="input" name="input_text" rows="8" cols="40" placeholder="עברית" style="text-align: right; font: 1.5em SBL Hebrew; "></textarea><br>
+      <!-- The text is inputed here  -->
+        <label for="input">Type or Paste Text Here:</label><br>
+        <textarea id="input" name="input_text" rows="4" cols="40" placeholder="עברית" style="text-align: right; font: 20px SBL Hebrew; "></textarea><br>
 
       <!-- The Text is outputted here  -->
         <label for="output">Transliteration:</label><br>
+        <textarea id="output" name="output_text" rows="5" cols="40" placeholder="ʿbryt" style="font: italic 16px Charis SIL Compact;"></textarea><br>
 
-        <textarea id="output" name="output_text" rows="8" cols="40" placeholder="ʿbryt" style="font: italic 1.5em Charis SIL Compact;"></textarea><br>
         <button id="input_button" type="button" name="submit_button">Submit</button>
         <button type="reset" name="reset_button">Reset</button> <br>
 
@@ -27,6 +38,7 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="transliterate.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/transliterate.js"></script>
   </body>
 </html>
