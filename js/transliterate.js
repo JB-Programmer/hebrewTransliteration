@@ -1,13 +1,13 @@
 var i;
+var arrayOfStrings;
+var index;
+var newStr;
 var inputVal; // the original Hebrew text
 var engVal; // the transliterated text
 var outputVal; // the text to be printed
 var dagesh = '9';
-var šinDot = '8';
-var śinDot = '7';
 var metheg = '5';
 var methegOrAthnah = /1|5/;
-var digit = /\d/; //any non specific digit = cantillation mark
 
 /* These are the Hebrew Characters and their corresponding transliterated character */
 const hebChars = {
@@ -111,24 +111,26 @@ function transliterateText () {
 ******************** Šin or śin *****************************
 ************************************************************/
 
+var šinDot = '8';
+var śinDot = '7';
 var śin = /š7/;
 
 function changeŠin () {
-  var arrayOfStrings = engVal.split(šinDot);
+  arrayOfStrings = engVal.split(šinDot);
   šinTrans = arrayOfStrings.join('');
   console.log("If a šin and dot is found it becomes: " + šinTrans);
   engVal = šinTrans;
 }
 
 function changeŚin () {
-  var arrayOfStrings = engVal.split(śin);
+  arrayOfStrings = engVal.split(śin);
   śinTrans = arrayOfStrings.join('ś');
   console.log("If a śin and dot is found it becomes: " + śinTrans);
   engVal = śinTrans;
 }
 
 function isŚinŠin () {
-  for (var i = 0; i < engVal.length; i++) {
+  for (i = 0; i < engVal.length; i++) {
     if (engVal.charAt(i) === 'š' && engVal.charAt(i + 1) === šinDot) {
       changeŠin ();
       outputVal = engVal;
@@ -149,17 +151,17 @@ var aMater = /āh(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|9)/;
 var materTrans;
 // changeHeMater changes a ה without a mappiq to â
 function changeHeMater () {
-  var arrayOfStrings = engVal.split(aMater);
+  arrayOfStrings = engVal.split(aMater);
   materTrans = arrayOfStrings.join('â');
   console.log("If a he-mater is found it becomes: " + materTrans);
   engVal = materTrans;
 }
 // isHeMater determines if the ה is being used as a mater, if so, executes changeHeMater
 function isHeMater () {
-  for (var i = 0; i < engVal.length; i++) {
+  for (i = 0; i < engVal.length; i++) {
     if (engVal.charAt(i) === 'ā' && methegOrAthnah.test(engVal.charAt(i + 1))) {
-      var index = engVal.indexOf(engVal.charAt(i+1), i+1);
-      var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
+      index = engVal.indexOf(engVal.charAt(i+1), i+1);
+      newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
       engVal = newStr;
       i = 0;
     } if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 1) === 'h' /*&& / /.test(engVal.charAt(i+2))*/ ) {
@@ -177,16 +179,16 @@ function isHeMater () {
 
 var aMaterMappiq = /āh9/; // this indicates the sequence of āh+mappiq
 var mappiqTrans;
-// changeMappiq changes a ה with a mappiq to āh
+
 function changeMappiq () {
-  var arrayOfStrings = engVal.split(aMaterMappiq);
+  arrayOfStrings = engVal.split(aMaterMappiq);
   mappiqTrans = arrayOfStrings.join('āh');
   console.log("If a he w/ a mappiq is found it becomes: " + mappiqTrans);
   engVal = mappiqTrans;
 }
-// isHeMappiq determines if the ה is being used with a mappiq, if so, executes changeMappiq
+
 function isHeMappiq() {
-  for (var i = 0; i < engVal.length; i++) {
+  for (i = 0; i < engVal.length; i++) {
     if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 1) === 'h' && engVal.charAt(i + 2) === dagesh ) {
       changeMappiq ();
       outputVal = engVal;
@@ -208,34 +210,34 @@ var segolYod = /ey(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|9)/;
 var segolYodTrans;
 
 function changeHiriqYod () {
-  var arrayOfStrings = engVal.split(hiriqYod);
+  arrayOfStrings = engVal.split(hiriqYod);
   hiriqYodTrans = arrayOfStrings.join('î');
   console.log("If a hiriq yod is found it becomes: " + hiriqYodTrans);
   engVal = hiriqYodTrans;
 }
 
 function changeTsereYod () {
-  var arrayOfStrings = engVal.split(tsereYod);
+  arrayOfStrings = engVal.split(tsereYod);
   tsereYodTrans = arrayOfStrings.join('ê');
   console.log("If a tsere yod is found it becomes: " + tsereYodTrans);
   engVal = tsereYodTrans;
 }
 
 function changeSegolYod () {
-  var arrayOfStrings = engVal.split(segolYod);
+  arrayOfStrings = engVal.split(segolYod);
   segolYodTrans = arrayOfStrings.join('ê');
   console.log("If a hiriq yod is found it becomes: " + segolYodTrans);
   engVal = segolYodTrans;
 }
 
 function isYodMater () {
-  for (var i = 0; i < engVal.length; i++) {
+  for (i = 0; i < engVal.length; i++) {
     if ( engVal.charAt(i) === 'i' && (engVal.charAt(i + 1) === 'y') && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i + 2)) ) ) {
       changeHiriqYod ();
       outputVal = engVal;
     } else if (engVal.charAt(i) === 'i' && methegOrAthnah.test(engVal.charAt(i+1)) && engVal.charAt(i + 2) === 'y' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i + 3)) ) ) {
-      var index = engVal.indexOf(engVal.charAt(i+1), i+1);
-      var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
+      index = engVal.indexOf(engVal.charAt(i+1), i+1);
+      newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
       engVal = newStr;
       changeHiriqYod ();
       outputVal = engVal;
@@ -243,8 +245,8 @@ function isYodMater () {
       changeTsereYod ();
       outputVal = engVal;
     } else if (engVal.charAt(i) === 'ē' && methegOrAthnah.test(engVal.charAt(i+1)) && engVal.charAt(i + 2) === 'y' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i + 3)) ) ) {
-      var index = engVal.indexOf(engVal.charAt(i+1), i+1);
-      var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
+      index = engVal.indexOf(engVal.charAt(i+1), i+1);
+      newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
       engVal = newStr;
       changeTsereYod ();
       outputVal = engVal;
@@ -252,8 +254,8 @@ function isYodMater () {
       changeSegolYod ();
       outputVal = engVal;
     } else if (engVal.charAt(i) === 'e' && methegOrAthnah.test(engVal.charAt(i+1)) && engVal.charAt(i + 2) === 'y' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i + 3)) ) ) {
-      var index = engVal.indexOf(engVal.charAt(i+1), i+1);
-      var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
+      index = engVal.indexOf(engVal.charAt(i+1), i+1);
+      newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
       engVal = newStr;
       changeSegolYod ();
       outputVal = engVal;
@@ -277,38 +279,38 @@ var shureqWawB = /9w(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|o|u)/;
 var shureqWawBTrans;
 
 function changeHolamWawA () {
-  var arrayOfStrings = engVal.split(holamWawA);
+  arrayOfStrings = engVal.split(holamWawA);
   holamWawATrans = arrayOfStrings.join('ô');
   console.log("If a holam waw is found it becomes: " + holamWawATrans);
   engVal = holamWawATrans;
 }
 
 function changeHolamWawB () {
-  var arrayOfStrings = engVal.split(holamWawB);
+  arrayOfStrings = engVal.split(holamWawB);
   holamWawBTrans = arrayOfStrings.join('ô');
   console.log("If a holam waw is found it becomes: " + holamWawBTrans);
   engVal = holamWawBTrans;
 }
 
 function changeShureqWawA () {
-  var arrayOfStrings = engVal.split(shureqWawA);
+  arrayOfStrings = engVal.split(shureqWawA);
   shureqWawATrans = arrayOfStrings.join('û');
   console.log("If a shureq waw is found it becomes: " + shureqWawATrans);
   engVal = shureqWawATrans;
 }
 
 function changeShureqWawB () {
-  var arrayOfStrings = engVal.split(shureqWawB);
+  arrayOfStrings = engVal.split(shureqWawB);
   shureqWawBTrans = arrayOfStrings.join('û');
   console.log("If a hiriq yod is found it becomes: " + shureqWawBTrans);
   engVal = shureqWawBTrans;
 }
 
 function isWawMater () {
-  for (var i = 0; i < engVal.length; i++) {
+  for (i = 0; i < engVal.length; i++) {
     if (engVal.charAt(i) === 'w' && methegOrAthnah.test(engVal.charAt(i + 1))) {
-      var index = engVal.indexOf(engVal.charAt(i+1), i+1);
-      var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
+      index = engVal.indexOf(engVal.charAt(i+1), i+1);
+      newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
       engVal = newStr;
       i = 0;
     } if ( engVal.charAt(i) === 'w' && engVal.charAt(i + 1) === 'ō' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|9/.test(engVal.charAt(i + 2)) ) &&
@@ -316,8 +318,8 @@ function isWawMater () {
       changeHolamWawA ();
       outputVal = engVal;
     } else if (engVal.charAt(i) === 'ō' && methegOrAthnah.test(engVal.charAt(i + 1))) {
-      var index = engVal.indexOf(engVal.charAt(i+1), i+1);
-      var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
+      index = engVal.indexOf(engVal.charAt(i+1), i+1);
+      newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
       engVal = newStr;
       i = 0;
     } if (engVal.charAt(i) === 'ō' && engVal.charAt(i + 1) === 'w' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|ō|u|9/.test(engVal.charAt(i + 2)) ) ) {
@@ -337,28 +339,29 @@ function isWawMater () {
 ************************************************************/
 
 function isQamatsQatan () {
-    for (var i = 0; i < engVal.length; i++) {
-      // Definitely Keep
+    for (i = 0; i < engVal.length; i++) {
       if ( engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === 'ŏ') {
-        var index = engVal.indexOf('ā', i);
-        var newStr = engVal.substr(0, index) + 'o' + engVal.substr(index+1, );
+        index = engVal.indexOf('ā', i);
+        newStr = engVal.substr(0, index) + 'o' + engVal.substr(index+1, );
         console.log("If a qamats qatan is found it becomes: " + newStr);
         engVal = newStr;
         outputVal = engVal;
-      } // This one may have to change
-      else if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === '-') {
-        var index = engVal.indexOf('ā', i);
-        var newStr = engVal.substr(0, index) + 'o' + engVal.substr(index+1, );
+      } else if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === '-') {
+        index = engVal.indexOf('ā', i);
+        newStr = engVal.substr(0, index) + 'o' + engVal.substr(index+1, );
         console.log("If a qamats qatan is found it becomes: " + newStr);
         engVal = newStr;
         outputVal = engVal;
-      } // Hmmmmm definitely not going to stay
+      }
       else if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === 'ǝ' && engVal.charAt(i + 4) === 'û') {
         outputVal = engVal;
       }
-      else if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === 'ǝ' && engVal.charAt(i + 3) != ' ') {
-        var index = engVal.indexOf('ā', i);
-        var newStr = engVal.substr(0, index) + 'o' + engVal.substr(index+1, );
+      else if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === 'ǝ' && !/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|/.test(engVal.charAt(i + 3)))
+      // engVal.charAt(i + 3) != ' ')
+      // This whole thing needs to change
+      {
+        index = engVal.indexOf('ā', i);
+        newStr = engVal.substr(0, index) + 'o' + engVal.substr(index+1, );
         console.log("If a qamats qatan is found it becomes: " + newStr);
         engVal = newStr;
         outputVal = engVal;
@@ -381,17 +384,17 @@ function isShewaSilent ( ) {
     }
     else if ( engVal.charAt(i) === 'ǝ' && /ǝ|a|e|i|u|o/.test(engVal.charAt(i - 2)))
     {
-      var index = engVal.indexOf('ǝ', i);
-      var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
+      index = engVal.indexOf('ǝ', i);
+      newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
       console.log("If a silent shewa is found it becomes: " + newStr);
       engVal = newStr;
       outputVal = engVal;
     }
     if ( engVal.charAt(i) === 'ǝ' && engVal.charAt(i+1) === ' ' )
     {
-      var index = engVal.indexOf('ǝ', i);
+      index = engVal.indexOf('ǝ', i);
       //  console.log(index);
-      var newStr = engVal.substr(0, index) + '' + engVal.substr(index + 1, );
+      newStr = engVal.substr(0, index) + '' + engVal.substr(index + 1, );
       console.log("If an end shewa is found it becomes: " + newStr);
       engVal = newStr;
       outputVal = engVal;
@@ -408,21 +411,21 @@ function isShewaSilent ( ) {
 ************************************************************/
 
 function isDoubling () {
-  for (var i = 0; i < engVal.length; i++) {
+  for (i = 0; i < engVal.length; i++) {
     if (engVal.charAt(i) === '9' && engVal.charAt(i-2) === '5') {
-      var index = engVal.indexOf(engVal.charAt(i-2), i-2);
-      var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
+      index = engVal.indexOf(engVal.charAt(i-2), i-2);
+      newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
       engVal = newStr;
       i = 0;
     } if (engVal.charAt(i) === '9' && /a|ā|e|ē|i|î|u|û|o|ô/.test(engVal.charAt(i-2)) ) {
-      var index = engVal.indexOf('9', i);
-      var newStr = engVal.substr(0, index) + engVal.charAt(index-1) + engVal.substr(index+1, );
+      index = engVal.indexOf('9', i);
+      newStr = engVal.substr(0, index) + engVal.charAt(index-1) + engVal.substr(index+1, );
       console.log("If a dagesh forte is found it becomes: " + newStr);
       engVal = newStr;
       outputVal = engVal;
     } else if (engVal.charAt(i) === '9') {
-      var index = engVal.indexOf('9', i);
-      var newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
+      index = engVal.indexOf('9', i);
+      newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
       console.log("If a dagesh lene is found it becomes: " + newStr);
       engVal = newStr;
       outputVal = engVal;
@@ -437,10 +440,10 @@ function isDoubling () {
 var gutturals = /h|ḥ|ʿ/;
 
 function isFurtivePatach () {
-  for (var i = 0; i < engVal.length; i++) {
+  for (i = 0; i < engVal.length; i++) {
     if (engVal.charAt(i) === 'a' && gutturals.test(engVal.charAt(i-1)) && /e|ē|ê|i|î|u|û|o|ô/.test(engVal.charAt(i-2)) && engVal.charAt(i+1) === ' ') {
-      var index = engVal.indexOf(engVal.charAt(i-1), i-1);
-      var newStr = engVal.substr(0, index) + 'a' + engVal.substr(index, 1 ) + '' + engVal.substr(index + 2, );
+      index = engVal.indexOf(engVal.charAt(i-1), i-1);
+      newStr = engVal.substr(0, index) + 'a' + engVal.substr(index, 1 ) + '' + engVal.substr(index + 2, );
       console.log("If a furtive patach is found it becomes: " + newStr);
       engVal = newStr;
       outputVal = engVal;
@@ -452,10 +455,12 @@ function isFurtivePatach () {
 ********************** Cleanup ******************************
 ************************************************************/
 
+var digit = /\d/; //any non specific digit = cantillation mark
+
 function cleanup () {
-  for (var i = 0; i < engVal.length; i++) {
+  for (i = 0; i < engVal.length; i++) {
     if (digit.test(engVal.charAt(i)) ) {
-      var arrayOfStrings = engVal.split(digit);
+      arrayOfStrings = engVal.split(digit);
       var cleanup = arrayOfStrings.join('');
       console.log("The cleanup becomes " + cleanup);
       engVal = cleanup;
