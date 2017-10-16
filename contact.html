@@ -13,30 +13,26 @@
       <ul>
         <li class="banner">HEBREW to TRANSLITERATION</li>
         <div class="page-links">
-          <li class="selected"><a href="index.html">Home</a></li>
+          <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="tips.html">Tips</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li class="selected"><a href="contact.html">Contact</a></li>
         </div>
         <span id="nav-arrow">&#8964</span>
       </ul>
     </nav>
     <section>
       <div class="wrapper">
-        <form name="transliteration">
-          <h1>Enter Text</h1>
+        <form name="contact">
+          <h1>Contact</h1>
+          <p>Have a question or comment? Submit it below.</p><br>
+          <label for="name">Name:</label>
+          <textarea name="name" rows="1" cols="10"></textarea>
+          <label for="email">Email:</label>
+          <textarea name="email" rows="1" cols="10"></textarea>
+          <label for="comments">Comment:</label>
+          <textarea name="comments" rows="4" cols="40"></textarea>
 
-        <!-- The text is inputed here  -->
-          <div class="input-area">
-            <label for="input">Type or Paste Text Here:</label><br>
-            <textarea id="input" name="input_text" rows="4" cols="40" placeholder="עברית" style="text-align: right; font: 20px SBL Hebrew; "></textarea><br>
-          </div>
-
-        <!-- The Text is outputted here  -->
-          <div class="output-area">
-            <label for="output">Transliteration:</label><br>
-            <textarea id="output" name="output_text" rows="5" cols="40" placeholder="ʿbryt" style="font: italic 16px Charis SIL Compact;"></textarea><br>
-          </div>
 
           <button id="input_button" type="button" name="submit_button">Submit</button>
           <button type="reset" name="reset_button">Reset</button> <br>
@@ -59,6 +55,6 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
-    <script type="text/javascript" src="js/transliterate.js"></script>
+
   </body>
 </html>

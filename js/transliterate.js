@@ -486,6 +486,7 @@ function test () {
   // ?? short vowels ??
   // ?? defective vowels ??
   // About page - embed video of me using it
+  // maybe add YHWH convert
   cleanup();
   outputVal = $('#output').val(outputVal);
 }
