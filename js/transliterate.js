@@ -40,8 +40,8 @@ const hebChars = {
   'ק':'q',
   'ר':'r',
   'ש':'š',
-  '\u05C1':šinDot,
-  '\u05C2':śinDot,
+  '\u05C1':'8',
+  '\u05C2':'7',
   '\uFB2A':'š', //ligature for שׁ
   '\uFB2B':'ś', //ligature for שׂ
   'ת':'t',
@@ -149,14 +149,14 @@ function isŚinŠin () {
 
 var aMater = /āh(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|9)/;
 var materTrans;
-// changeHeMater changes a ה without a mappiq to â
+
 function changeHeMater () {
   arrayOfStrings = engVal.split(aMater);
   materTrans = arrayOfStrings.join('â');
   console.log("If a he-mater is found it becomes: " + materTrans);
   engVal = materTrans;
 }
-// isHeMater determines if the ה is being used as a mater, if so, executes changeHeMater
+
 function isHeMater () {
   for (i = 0; i < engVal.length; i++) {
     if (engVal.charAt(i) === 'ā' && methegOrAthnah.test(engVal.charAt(i + 1))) {
@@ -357,8 +357,6 @@ function isQamatsQatan () {
         outputVal = engVal;
       }
       else if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === 'ǝ' && !/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|/.test(engVal.charAt(i + 3)))
-      // engVal.charAt(i + 3) != ' ')
-      // This whole thing needs to change
       {
         index = engVal.indexOf('ā', i);
         newStr = engVal.substr(0, index) + 'o' + engVal.substr(index+1, );
@@ -393,7 +391,6 @@ function isShewaSilent ( ) {
     if ( engVal.charAt(i) === 'ǝ' && engVal.charAt(i+1) === ' ' )
     {
       index = engVal.indexOf('ǝ', i);
-      //  console.log(index);
       newStr = engVal.substr(0, index) + '' + engVal.substr(index + 1, );
       console.log("If an end shewa is found it becomes: " + newStr);
       engVal = newStr;
@@ -487,11 +484,6 @@ function test () {
   isQamatsQatan();
   isDoubling();
   isFurtivePatach();
-  // qamats qatan in "closed" syllables
-  // ?? short vowels ??
-  // ?? defective vowels ??
-  // About page - embed video of me using it
-  // maybe add YHWH convert
   cleanup();
   outputVal = $('#output').val(outputVal);
 }
