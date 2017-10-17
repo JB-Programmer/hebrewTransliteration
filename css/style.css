@@ -20,22 +20,26 @@ body {
 /****************************************
 ****************** Nav ******************
 *****************************************/
-
-nav {
-  display: flex;
-  justify-content: center;
-}
-
-nav ul{
-  list-style: none;
+header {
   display: flex;
   flex-flow: column nowrap;
-  text-align: center;
-  font-size: 24px;
+  align-items: center;
 }
 
 .banner {
   margin: 20px 20px 10px 20px;
+  font-size: 24px;
+  text-align: center;
+}
+
+nav {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+nav ul{
+  list-style: none;
 }
 
 .page-links {
@@ -43,11 +47,13 @@ nav ul{
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  justify-content: space-between;
   margin-top: 10px;
+  margin-bottom: 5px;
 }
 
 .page-links li {
-  padding: 5px;
+  padding: 5px 15px;
   width: 40%;
 }
 
@@ -61,13 +67,17 @@ nav ul{
 }
 
 .page-links li:first-child, .page-links li+li {
-  /*border-bottom: 1px solid;*/
   border-right: 1px solid;
 }
 
 .page-links li:last-child {
   border-right: none;
 }
+
+#nav-arrow {
+  font-size: 20px;
+}
+
 /****************************************
 ****************** Main *****************
 *****************************************/
@@ -75,21 +85,24 @@ nav ul{
 section {
   background-color: #f4f3f0;
   box-shadow: inset 0px 4px 4px -1px rgba(0, 0, 0, .3);
+  padding-top: 15px;
+  padding-bottom: 15px;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+  align-content: center;
   flex: 1;
 }
 
 .wrapper {
-  /*border: 1px solid green;*/
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
   width: 90%;
   margin: auto;
-  padding-top: 10px;
+  /*margin-top: 10px;
+  margin-bottom: 10px;*/
   padding-bottom: 10px;
   border-radius: 5px;
   background-color: white;
@@ -171,7 +184,7 @@ footer {
 /*****************************************/
 @media screen and (min-width: 900px) {
 
-  nav ul {
+  header {
     width: 100%;
     flex-flow: row nowrap;
     align-items: center;
