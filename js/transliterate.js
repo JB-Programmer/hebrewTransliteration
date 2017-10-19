@@ -346,7 +346,8 @@ function isQamatsQatan () {
         console.log("If a qamats qatan is found it becomes: " + newStr);
         engVal = newStr;
         outputVal = engVal;
-      } else if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === '-') {
+      }
+      else if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === '-') {
         index = engVal.indexOf('ā', i);
         newStr = engVal.substr(0, index) + 'o' + engVal.substr(index+1, );
         console.log("If a qamats qatan is found it becomes: " + newStr);
@@ -356,8 +357,18 @@ function isQamatsQatan () {
       else if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === 'ǝ' && engVal.charAt(i + 4) === 'û') {
         outputVal = engVal;
       }
-      else if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === 'ǝ' && !/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|/.test(engVal.charAt(i + 3)))
-      {
+      // else if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === 'ǝ' && !/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|/.test(engVal.charAt(i + 3)))
+      // {
+      //   index = engVal.indexOf('ā', i);
+      //   newStr = engVal.substr(0, index) + 'o' + engVal.substr(index+1, );
+      //   console.log("If a qamats qatan is found it becomes: " + newStr);
+      //   engVal = newStr;
+      //   outputVal = engVal;
+      // }
+      else if (engVal.charAt(i) === 'ā' && !/ǝ|ĕ|ă|ŏ|a|ā|e|ē|ê|i|î|o|ō|ô|u|ū|û| /.test(engVal.charAt(i + 1))
+      && !/ǝ|ĕ|ă|ŏ|a|ā|e|ē|ê|i|î|o|ō|ô|u|ū|û| /.test(engVal.charAt(i + 2)) ) {
+        // tests if there is a closed syllable, may have issues
+        console.log("TEST!");
         index = engVal.indexOf('ā', i);
         newStr = engVal.substr(0, index) + 'o' + engVal.substr(index+1, );
         console.log("If a qamats qatan is found it becomes: " + newStr);
@@ -378,18 +389,30 @@ function isQamatsQatan () {
 function isShewaSilent ( ) {
   for ( i = 0; i < engVal.length; i++) {
     if (engVal.charAt(i) === 'ǝ' && /s|ṣ|š|ś|q|n|m|l|w|y/.test(engVal.charAt(i - 1))&& /ǝ|a|e|i|u|o/.test(engVal.charAt(i - 2)) && /w/.test(engVal.charAt(i - 3)) ){
+      // tests for SQeNeM LeVY letters in wayyiqtol forms
       outputVal = engVal;
     }
     else if ( engVal.charAt(i) === 'ǝ' && /ǝ|a|e|i|u|o/.test(engVal.charAt(i - 2)))
     {
+      // tests for basic shewa preceded by short vowels
       index = engVal.indexOf('ǝ', i);
       newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
       console.log("If a silent shewa is found it becomes: " + newStr);
       engVal = newStr;
       outputVal = engVal;
     }
-    if ( engVal.charAt(i) === 'ǝ' && engVal.charAt(i+1) === ' ' )
+    else if (engVal.charAt(i) === 'ǝ' && /b|g|d|k|p|t/.test(engVal.charAt(i+1)) && engVal.charAt(i+2) === dagesh)
     {
+      // tests for silent shewa as indicated by BeGaDKePaT letter
+      index = engVal.indexOf('ǝ', i);
+      newStr = engVal.substr(0, index) + '' + engVal.substr(index+1, );
+      console.log("If a silent shewa is found it becomes: " + newStr);
+      engVal = newStr;
+      outputVal = engVal;
+    }
+    else if ( engVal.charAt(i) === 'ǝ' && engVal.charAt(i+1) === ' ' )
+    {
+      // tests for shewa at end of the word
       index = engVal.indexOf('ǝ', i);
       newStr = engVal.substr(0, index) + '' + engVal.substr(index + 1, );
       console.log("If an end shewa is found it becomes: " + newStr);
