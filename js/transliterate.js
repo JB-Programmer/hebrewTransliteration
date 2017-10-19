@@ -365,8 +365,8 @@ function isQamatsQatan () {
       //   engVal = newStr;
       //   outputVal = engVal;
       // }
-      else if (engVal.charAt(i) === 'ā' && !/ǝ|ĕ|ă|ŏ|a|ā|e|ē|ê|i|î|o|ō|ô|u|ū|û| /.test(engVal.charAt(i + 1))
-      && !/ǝ|ĕ|ă|ŏ|a|ā|e|ē|ê|i|î|o|ō|ô|u|ū|û| /.test(engVal.charAt(i + 2)) ) {
+      else if (engVal.charAt(i) === 'ā' && !/ǝ|ĕ|ă|ŏ|a|ā|e|ē|ê|i|î|o|ō|ô|u|ū|û| |y/.test(engVal.charAt(i + 1))
+      && !/ǝ|ĕ|ă|ŏ|a|ā|e|ē|ê|i|î|o|ō|ô|u|ū|û| |w/.test(engVal.charAt(i + 2)) ) {
         // tests if there is a closed syllable, may have issues
         console.log("TEST!");
         index = engVal.indexOf('ā', i);
@@ -461,7 +461,7 @@ var gutturals = /h|ḥ|ʿ/;
 
 function isFurtivePatach () {
   for (i = 0; i < engVal.length; i++) {
-    if (engVal.charAt(i) === 'a' && gutturals.test(engVal.charAt(i-1)) && /e|ē|ê|i|î|u|û|o|ô/.test(engVal.charAt(i-2)) && engVal.charAt(i+1) === ' ') {
+    if (engVal.charAt(i) === 'a' && gutturals.test(engVal.charAt(i-1)) && /e|ē|ê|i|î|u|û|o|ō|ô/.test(engVal.charAt(i-2)) && engVal.charAt(i+1) === ' ') {
       index = engVal.indexOf(engVal.charAt(i-1), i-1);
       newStr = engVal.substr(0, index) + 'a' + engVal.substr(index, 1 ) + '' + engVal.substr(index + 2, );
       console.log("If a furtive patach is found it becomes: " + newStr);
