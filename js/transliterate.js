@@ -273,9 +273,9 @@ var holamWawA = /wō(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|u|9)/;
 var holamWawATrans;
 var holamWawB = /ōw(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|u|9)/;
 var holamWawBTrans;
-var shureqWawA = /w9(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|o|u)/;
+var shureqWawA = /w9(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|â|o|ô|u|û)/;
 var shureqWawATrans;
-var shureqWawB = /9w(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|o|u)/;
+var shureqWawB = /9w(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|â|o|ô|u|û)/;
 var shureqWawBTrans;
 
 function changeHolamWawA () {
@@ -325,7 +325,8 @@ function isWawMater () {
     } if (engVal.charAt(i) === 'ō' && engVal.charAt(i + 1) === 'w' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|ō|u|9/.test(engVal.charAt(i + 2)) ) ) {
       changeHolamWawB ();
       outputVal = engVal;
-    } if (engVal.charAt(i) === 'w' && engVal.charAt(i + 1) === '9' && !(/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|ō|u/.test(engVal.charAt(i + 2)) )) {
+    } if (engVal.charAt(i) === 'w' && engVal.charAt(i + 1) === '9' && !/ǝ|ĕ|ă|ŏ|a|ā|â|e|ē|i|o|ō|ô|u|ū/.test(engVal.charAt(i + 2))  ) {
+      console.log(i);
       changeShureqWawA ();
       outputVal = engVal;
     } else {
@@ -368,7 +369,6 @@ function isQamatsQatan () {
       else if (engVal.charAt(i) === 'ā' && !/ǝ|ĕ|ă|ŏ|a|ā|e|ē|ê|i|î|o|ō|ô|u|ū|û| |y/.test(engVal.charAt(i + 1))
       && !/ǝ|ĕ|ă|ŏ|a|ā|e|ē|ê|i|î|o|ō|ô|u|ū|û| |w/.test(engVal.charAt(i + 2)) ) {
         // tests if there is a closed syllable, may have issues
-        console.log("TEST!");
         index = engVal.indexOf('ā', i);
         newStr = engVal.substr(0, index) + 'o' + engVal.substr(index+1, );
         console.log("If a qamats qatan is found it becomes: " + newStr);
