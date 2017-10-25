@@ -453,7 +453,7 @@ var gutturals = /h|ḥ|ʿ/;
 
 function isFurtivePatach () {
   for (i = 0; i < engVal.length; i++) {
-    if (engVal.charAt(i) === 'a' && gutturals.test(engVal.charAt(i-1)) && /e|ē|ê|i|î|u|û|o|ō|ô/.test(engVal.charAt(i-2)) && engVal.charAt(i+1) === ' ') {
+    if (engVal.charAt(i) === 'a' && gutturals.test(engVal.charAt(i-1)) && /e|ē|ê|i|î|u|û|o|ō|ô/.test(engVal.charAt(i-2)) && / |-/.test(engVal.charAt(i+1))) {
       index = engVal.indexOf(engVal.charAt(i-1), i-1);
       newStr = engVal.substr(0, index) + 'a' + engVal.substr(index, 1 ) + '' + engVal.substr(index + 2, );
       console.log("If a furtive patach is found it becomes: " + newStr);
