@@ -336,53 +336,6 @@ function isWawMater () {
 }
 
 /************************************************************
-******************** Qamats Qatan ***************************
-************************************************************/
-
-function isQamatsQatan () {
-    for (i = 0; i < engVal.length; i++) {
-      if ( engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === 'ŏ') {
-        index = engVal.indexOf('ā', i);
-        newStr = engVal.substr(0, index) + 'o' + engVal.substr(index+1, );
-        console.log("If a qamats qatan is found it becomes: " + newStr);
-        engVal = newStr;
-        outputVal = engVal;
-      }
-      else if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === '-') {
-        index = engVal.indexOf('ā', i);
-        newStr = engVal.substr(0, index) + 'o' + engVal.substr(index+1, );
-        console.log("If a qamats qatan is found it becomes: " + newStr);
-        engVal = newStr;
-        outputVal = engVal;
-      }
-      else if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === 'ǝ' && engVal.charAt(i + 4) === 'û') {
-        outputVal = engVal;
-      }
-      // else if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === 'ǝ' && !/ǝ|ĕ|ă|ŏ|a|ā|e|ē|i|o|u|/.test(engVal.charAt(i + 3)))
-      // {
-      //   index = engVal.indexOf('ā', i);
-      //   newStr = engVal.substr(0, index) + 'o' + engVal.substr(index+1, );
-      //   console.log("If a qamats qatan is found it becomes: " + newStr);
-      //   engVal = newStr;
-      //   outputVal = engVal;
-      // }
-      else if (engVal.charAt(i) === 'ā' && !/ǝ|ĕ|ă|ŏ|a|ā|e|ē|ê|i|î|o|ō|ô|u|ū|û| |y/.test(engVal.charAt(i + 1))
-      && !/ǝ|ĕ|ă|ŏ|a|ā|e|ē|ê|i|î|o|ō|ô|u|ū|û| |w/.test(engVal.charAt(i + 2)) ) {
-        // tests if there is a closed syllable, may have issues
-        index = engVal.indexOf('ā', i);
-        newStr = engVal.substr(0, index) + 'o' + engVal.substr(index+1, );
-        console.log("If a qamats qatan is found it becomes: " + newStr);
-        engVal = newStr;
-        outputVal = engVal;
-      }
-      else
-      {
-        outputVal = engVal;
-      }
-    }
-  }
-
-/************************************************************
 ******************** Shewa Naʿ or Naḥ ***********************
 ************************************************************/
 
@@ -425,6 +378,45 @@ function isShewaSilent ( ) {
     }
   }
 }
+
+/************************************************************
+******************** Qamats Qatan ***************************
+************************************************************/
+
+function isQamatsQatan () {
+    for (i = 0; i < engVal.length; i++) {
+      if ( engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === 'ŏ') {
+        index = engVal.indexOf('ā', i);
+        newStr = engVal.substr(0, index) + 'o' + engVal.substr(index+1, );
+        console.log("If a qamats qatan is found it becomes: " + newStr);
+        engVal = newStr;
+        outputVal = engVal;
+      }
+      else if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === '-') {
+        index = engVal.indexOf('ā', i);
+        newStr = engVal.substr(0, index) + 'o' + engVal.substr(index+1, );
+        console.log("If a qamats qatan is found it becomes: " + newStr);
+        engVal = newStr;
+        outputVal = engVal;
+      }
+      else if (engVal.charAt(i) === 'ā' && engVal.charAt(i + 2) === 'ǝ' && engVal.charAt(i + 4) === 'û') {
+        outputVal = engVal;
+      }
+      else if (engVal.charAt(i) === 'ā' && !/ǝ|ĕ|ă|ŏ|a|ā|e|ē|ê|i|î|o|ō|ô|u|ū|û| |y/.test(engVal.charAt(i + 1))
+      && !/ǝ|ĕ|ă|ŏ|a|ā|e|ē|ê|i|î|o|ō|ô|u|ū|û| |w/.test(engVal.charAt(i + 2)) ) {
+        // tests if there is a closed syllable, may have issues
+        index = engVal.indexOf('ā', i);
+        newStr = engVal.substr(0, index) + 'o' + engVal.substr(index+1, );
+        console.log("If a qamats qatan is found it becomes: " + newStr);
+        engVal = newStr;
+        outputVal = engVal;
+      }
+      else
+      {
+        outputVal = engVal;
+      }
+    }
+  }
 
 /************************************************************
 ******************** Doubling *******************************
@@ -492,6 +484,30 @@ function cleanup () {
 }
 
 /************************************************************
+********************** isYHWH ******************************
+************************************************************/
+
+function isYHWH () {
+  for (i = 0; i < engVal.length; i++) {
+    if (engVal.charAt(i) === 'y' && engVal.charAt(i + 1) === 'ǝ' && engVal.charAt(i + 2) === 'h' && engVal.charAt(i + 3) === 'w' && engVal.charAt(i + 4) === 'â') {
+      index = engVal.indexOf('y', i);
+      newStr = engVal.substr(0, index) + 'yhwh' + engVal.substr(index+5, );
+      console.log("The divine name is changed " + newStr);
+      engVal = newStr;
+      outputVal = engVal;
+    } else if (engVal.charAt(i) === 'y' && engVal.charAt(i + 1) === 'h' && engVal.charAt(i + 2) === 'w' && engVal.charAt(i + 3) === 'â') {
+      index = engVal.indexOf('y', i);
+      newStr = engVal.substr(0, index) + 'yhwh' + engVal.substr(index+4, );
+      console.log("The divine name is changed " + newStr);
+      engVal = newStr;
+      outputVal = engVal;
+    }else {
+      outputVal = engVal;
+    }
+  }
+}
+
+/************************************************************
 ************* THIS IS WHERE THE MAGIC HAPPENS ***************
 ************************************************************/
 
@@ -508,6 +524,7 @@ function test () {
   isDoubling();
   isFurtivePatach();
   cleanup();
+  isYHWH();
   outputVal = $('#output').val(outputVal);
 }
 
